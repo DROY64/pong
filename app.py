@@ -47,13 +47,41 @@ wn.listen()
 wn.onkeypress(paddle_up, 'Up')
 wn.onkeypress(paddle_down, 'Down')
 
+# Score variabele
+score = 0
+
+# Pen om de score weer te geven
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Score: 0", align="center", font=("Courier", 24, "normal"))
+
+def update_score():
+    pen.clear()
+    pen.write("Score: {}".format(score), align="center", font=("Courier", 24, "normal"))
+
 while True:
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
+    
     if (ball.xcor() > 400):
        ball.dx *= -1
     if (ball.ycor() > 300 or ball.ycor() < -300 ):
        ball.dy *= -1
+       
+    if (ball.dx < 0 and ball.xcor() < -350): # ball beweegt naar links en zit bij de linker zijkant.
+        if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de bal
+            ball.dx *= -1 # beweeg de bal de andere kant uit (horizontaal)
+            ball.dy *= -1 # beweeg de bal de andere kant uit (verticaal)
+        else:
+            ball.dx = 0 
+            ball.dy = 0
+            score = score + 1
+            print(score)
+    update_score()
     wn.update()
 
 # input("Press any key to continue...")  # tijdelijke toevoeging t.b.v. testen

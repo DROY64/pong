@@ -1,4 +1,4 @@
-import turtle
+import turtle, time
 
 # Venster instellen
 wn = turtle.Screen()
@@ -50,6 +50,9 @@ wn.onkeypress(paddle_down, 'Down')
 # Score variabele
 score = 0
 
+# Lifes variable
+lifes = 3
+
 # Pen om de score weer te geven
 pen = turtle.Turtle()
 pen.speed(0)
@@ -57,31 +60,43 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Score: 0", align="center", font=("Courier", 24, "normal"))
+pen.write("Score: 0 Levens: 3", align="center", font=("Courier", 24, "normal"))
 
 def update_score():
     pen.clear()
-    pen.write("Score: {}".format(score), align="center", font=("Courier", 24, "normal"))
+    pen.write("Score: {} Levens: {}".format(score, lifes), align="center", font=("Courier", 24, "normal"))
+    
+def game_over():
+    pen.goto(0, 0)
+    pen.write("Game Over", align="center", font=("Courier", 36, "normal"))
 
 while True:
-    ball.setx(ball.xcor() + ball.dx)
+    ball.setx(ball.xcor() + ball.dx) #movement
     ball.sety(ball.ycor() + ball.dy)
     
+    #walls
     if (ball.xcor() > 400):
        ball.dx *= -1
     if (ball.ycor() > 300 or ball.ycor() < -300 ):
        ball.dy *= -1
        
-    if (ball.dx < 0 and ball.xcor() < -350): # ball beweegt naar links en zit bij de linker zijkant.
+    if (ball.dx < 0 and ball.xcor() < -350): # ball vliegt naar de linkerkant.
         if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de bal
             ball.dx *= -1 # beweeg de bal de andere kant uit (horizontaal)
             ball.dy *= -1 # beweeg de bal de andere kant uit (verticaal)
-        else:
+        elif (lifes == 0):
             ball.dx = 0 
             ball.dy = 0
+            game_over()
+        else:
+            ball.goto(0, 0)
             score = score + 1
-            print(score)
-    update_score()
+            lifes = lifes - 1
+            print(score, lifes)
+            update_score()
+            time.sleep(3)
+            ball.dx = 0.2 
+            ball.dy = -0.2
     wn.update()
 
 # input("Press any key to continue...")  # tijdelijke toevoeging t.b.v. testen

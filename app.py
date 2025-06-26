@@ -84,7 +84,7 @@ while True:
         if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de pedal
             ball.dx *= -1 # beweeg de bal de andere kant uit (horizontaal)
             while (paddle.ycor() ): #calculate which part of the paddle the ball hits, isolate the pixel it hits on the paddle by subscracting the empty vertex to find the striking location. 
-                cor = #get the padle coords and get the ball coords, make a equation to pinpoint how far from the centerline of the paddle the ball hits and then make the while loop run the sequence as many times to then return a number. After the the return we run it through another math equation to then return a deicmal number to give the ball a heading after impact. This is gradually done. First, figure out how to make both coords correlate to an equation that will work with both negatives and positives, and figure out if that's done inside the loop or outside.
+                cor = 0 #get the padle coords and get the ball coords, make a equation to pinpoint how far from the centerline of the paddle the ball hits and then make the while loop run the sequence as many times to then return a number. After the the return we run it through another math equation to then return a deicmal number to give the ball a heading after impact. This is gradually done. First, figure out how to make both coords correlate to an equation that will work with both negatives and positives, and figure out if that's done inside the loop or outside.
             # ball.dy *= -1 # beweeg de bal de andere kant uit (verticaal)
         elif (lifes == 0):
             ball.dx = 0 

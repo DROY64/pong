@@ -12,3 +12,5 @@ range = (-0.15, 0.15)
 end_result = 14 = -0.075 
 
 end_result = (difference / 28) * 2
+
+Author: Leonard Ampoe

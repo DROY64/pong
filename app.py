@@ -78,7 +78,8 @@ def opponent_scores():
     wn.update()
     time.sleep(3)
     update_score()
-    
+
+i = 0
 
 while True:
     ball.setx(ball.xcor() + ball.dx) #movement
@@ -90,7 +91,6 @@ while True:
     if (ball.ycor() > 300 or ball.ycor() < -300 ):
        ball.dy *= -1
     if (ball.dx < 0 and ball.xcor() < -350): # ball vliegt naar de linkerkant.
-        i = 0
         if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de pedal
             relative_intersect_y = ball.ycor() - paddle.ycor()
             normalized_intersect_y = relative_intersect_y / 60
@@ -113,7 +113,7 @@ while True:
             ball.goto(0, 0)
             score = score + 1
             lifes = lifes - 1
-            print(f"De score: {score}, De levens: {lifes}")
+            print(f"De score: {score}, De levens: {lifes}, snelheid: {ball.dx}")
             # update_score()
             opponent_scores()
             ball.dx = 0.2 

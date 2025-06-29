@@ -98,7 +98,6 @@ while True:
             bounce_angle = normalized_intersect_y * max_bounce_angle
             current_ball_speed = math.sqrt(ball.dx**2 + ball.dy**2)
             ball.dy = current_ball_speed * math.sin(bounce_angle)
-            ball.dx = current_ball_speed * math.cos(bounce_angle) * (-1 if ball.dx > 0 else 1)
             i+=1
             if (i == 5):
                 ball.dx *= -1.05

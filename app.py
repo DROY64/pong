@@ -100,8 +100,7 @@ while True:
             ball.dy = current_ball_speed * math.sin(bounce_angle)
             i+=1
             if (i == 5):
-                ball.dx *= -1.05
-                ball.dy *= -1.05
+                ball.dx *= -1.1
                 i = 0
             ball.dx *= -1 # beweeg de bal de andere kant uit (horizontaal)
         elif (lifes == 0):

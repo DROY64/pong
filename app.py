@@ -1,4 +1,4 @@
-import turtle, time
+import turtle, time, math, random
 
 # Venster instellen
 wn = turtle.Screen()
@@ -11,7 +11,7 @@ wn.tracer(0)
 ball = turtle.Turtle()
 ball.shape("square")
 ball.color("white")
-ball.speed(1)
+ball.speed(0)
 ball.penup()
 ball.goto(0, 0)
 ball.dx = 0.2
@@ -63,12 +63,22 @@ pen.goto(0, 260)
 pen.write("Score: 0 Levens: 3", align="center", font=("Courier", 24, "normal"))
 
 def update_score():
+    pen.goto(0, 260)
     pen.clear()
     pen.write("Score: {} Levens: {}".format(score, lifes), align="center", font=("Courier", 24, "normal"))
+    print(score)
     
 def game_over():
     pen.goto(0, 0)
     pen.write("Game Over", align="center", font=("Courier", 36, "normal"))
+
+def opponent_scores():
+    pen.goto(0, 0)
+    pen.write("Opponent Scored", align="center", font=("Courier", 36, "normal"))
+    wn.update()
+    time.sleep(3)
+    update_score()
+    
 
 while True:
     ball.setx(ball.xcor() + ball.dx) #movement
@@ -79,13 +89,26 @@ while True:
        ball.dx *= -1
     if (ball.ycor() > 300 or ball.ycor() < -300 ):
        ball.dy *= -1
-       
     if (ball.dx < 0 and ball.xcor() < -350): # ball vliegt naar de linkerkant.
+        i = 0
         if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de pedal
+            # offset = (round(ball.ycor()) + 1 - round(paddle.ycor())) / \
+            #     (paddle.width() + 1) # ball.s is the ball size like 10px it means that is 10px wide and 10px high
+            # phi = 0.25 * math.pi * (2 * offset - 1)
+            # ball.dy = ball.speed() * math.sin(phi)
+            relative_intersect_y = ball.ycor() - paddle.ycor()
+            normalized_intersect_y = relative_intersect_y / 60
+            max_bounce_angle = math.pi / 4
+            bounce_angle = normalized_intersect_y * max_bounce_angle
+            current_ball_speed = math.sqrt(ball.dx**2 + ball.dy**2)
+            ball.dy = current_ball_speed * math.sin(bounce_angle)
+            ball.dx = current_ball_speed * math.cos(bounce_angle) * (-1 if ball.dx > 0 else 1)
+            i+=1
+            if (i == 5):
+                ball.dx *= -1.05
+                ball.dy *= -1.05
+                i = 0
             ball.dx *= -1 # beweeg de bal de andere kant uit (horizontaal)
-            while (paddle.ycor() ): #calculate which part of the paddle the ball hits, isolate the pixel it hits on the paddle by subscracting the empty vertex to find the striking location. 
-                cor = 0 #get the padle coords and get the ball coords, make a equation to pinpoint how far from the centerline of the paddle the ball hits and then make the while loop run the sequence as many times to then return a number. After the the return we run it through another math equation to then return a deicmal number to give the ball a heading after impact. This is gradually done. First, figure out how to make both coords correlate to an equation that will work with both negatives and positives, and figure out if that's done inside the loop or outside.
-            # ball.dy *= -1 # beweeg de bal de andere kant uit (verticaal)
         elif (lifes == 0):
             ball.dx = 0 
             ball.dy = 0
@@ -94,11 +117,11 @@ while True:
             ball.goto(0, 0)
             score = score + 1
             lifes = lifes - 1
-            print(score, lifes)
-            update_score()
-            time.sleep(3)
+            print(f"De score: {score}, De levens: {lifes}")
+            # update_score()
+            opponent_scores()
             ball.dx = 0.2 
-            ball.dy = -0.2
+            ball.dy = random.uniform(-0.2, 0.2)
     wn.update()
 
 # input("Press any key to continue...")  # tijdelijke toevoeging t.b.v. testen

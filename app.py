@@ -76,6 +76,7 @@ def opponent_scores():
     pen.goto(0, 0)
     pen.write("Opponent Scored", align="center", font=("Courier", 36, "normal"))
     paddle.goto(-350, 0)
+    ball.color("white")
     wn.update()
     time.sleep(3)
     update_score()
@@ -100,6 +101,20 @@ while True:
             current_ball_speed = math.sqrt(ball.dx**2 + ball.dy**2)
             ball.dy = current_ball_speed * math.sin(bounce_angle)
             i+=1
+            ball.color(
+                random.choice(
+                    [
+                        "white",
+                        "red",
+                        "blue",
+                        "lime",
+                        "green",
+                        "crimson",
+                        "aqua",
+                        "pink"
+                    ]
+                )
+            )
             if (i == 5):
                 ball.dx *= -1.1
                 i = 0

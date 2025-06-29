@@ -75,6 +75,7 @@ def game_over():
 def opponent_scores():
     pen.goto(0, 0)
     pen.write("Opponent Scored", align="center", font=("Courier", 36, "normal"))
+    paddle.goto(-350, 0)
     wn.update()
     time.sleep(3)
     update_score()

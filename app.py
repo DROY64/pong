@@ -1,3 +1,5 @@
+#Ik heb gekozen voor variatie in hoek wanneer de bal wordt geraakt, snelheid die groter wordt na 5 keer raken en de kleur van de bal verandert na elke paddle hit.
+
 import turtle, time, math, random
 
 # Venster instellen

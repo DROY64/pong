@@ -92,10 +92,6 @@ while True:
     if (ball.dx < 0 and ball.xcor() < -350): # ball vliegt naar de linkerkant.
         i = 0
         if (paddle.ycor() - 60 < ball.ycor() < paddle.ycor() + 60): # bal 'raakt' de pedal
-            # offset = (round(ball.ycor()) + 1 - round(paddle.ycor())) / \
-            #     (paddle.width() + 1) # ball.s is the ball size like 10px it means that is 10px wide and 10px high
-            # phi = 0.25 * math.pi * (2 * offset - 1)
-            # ball.dy = ball.speed() * math.sin(phi)
             relative_intersect_y = ball.ycor() - paddle.ycor()
             normalized_intersect_y = relative_intersect_y / 60
             max_bounce_angle = math.pi / 4
